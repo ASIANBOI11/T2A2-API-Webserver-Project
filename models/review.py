@@ -6,5 +6,5 @@ class Review(db.Model):
 
     #setting the columns
     review_id = db.Column(db.Integer, primary_key=True)
-    rating = db.Column(db.Integer(10))
+    rating = db.Column(db.Integer())
     description = db.Column(db.String())

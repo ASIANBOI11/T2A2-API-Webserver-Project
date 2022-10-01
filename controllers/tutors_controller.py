@@ -17,6 +17,10 @@ def get_tutors():
 def get_tutor(id):
     tutor = Tutors.query.get(id)
     result = tutor_schema.dump(tutor)
+
+    if not tutor:
+        return {"error": "No tutors found"}
+
     return jsonify(result)
 
 @tutors.route("/", methods=["POST"])
@@ -30,4 +34,23 @@ def new_tutor():
 
     db.session.add(tutor)
     db.session.commit()
+    return jsonify(tutor_schema.dump(tutor))
+
+
+@tutors.route("/<int:id>", methods=["PUT"])
+def update_tutor(id):
+    #Find tutor in the database
+    tutor = Tutors.query.get(id)
+
+    if not tutor:
+        return {"error": "No tutor found"}
+
+    tutor_fields = Tutors.load(request.json)
+
+    tutor.first_name = tutor_fields["first_name"]
+    tutor.last_name = tutor_fields["last_name"]
+    tutor.email = tutor_fields["email"]
+
+    db.session.commit()
+
     return jsonify(tutor_schema.dump(tutor))

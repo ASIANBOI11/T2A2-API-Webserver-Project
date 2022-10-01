@@ -6,9 +6,10 @@ class Tutors(db.Model):
 
     #setting the columns
     tutor_id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String())
-    last_name = db.Column(db.String())
-    email = db.Column(db.String())
+    first_name = db.Column(db.String(), nullable=False)
+    last_name = db.Column(db.String(), nullable=False)
+    email = db.Column(db.String(), nullable=False)
+    password = db.Column(db.String(), nullable=False)
     
 
     

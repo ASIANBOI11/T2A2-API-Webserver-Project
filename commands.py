@@ -1,8 +1,11 @@
 from pydoc import describe
 from flask import Blueprint
 from main import db
+from main import bcrypt
+from datetime import date
 from models.tutors import Tutors
 from models.subject import Subject
+from models.students import Students
 
 db_commands = Blueprint("db",__name__)
 
@@ -23,24 +26,31 @@ def seed_db():
     tutor1 = Tutors(
         first_name = "Leo",
         last_name = "Pen",
-        email = "leo@gmail.com"
-    )
-
-    tutor2 = Tutors(
-        first_name = "Alice",
-        last_name = "Pen",
-        email = "Alicepen@gmail.com"
+        email = "leo@gmail.com",
+        password = bcrypt.generate_password_hash("12345678").decode("utf-8")
     )
 
     db.session.add(tutor1)
-    db.session.add(tutor2)
-
-    subject1 = Subject(
-        subject = "Math",
-        description =  "The math subject teaches algebra, trigonomentry and probability"
-    )
-        
-    db.session.add(subject1)
 
     db.session.commit()
+
+    student1 = Students(
+        first_name = "Sarah",
+        last_name = "Joey",
+        email = "joe@example.com",
+        password = bcrypt.generate_password_hash("12345678").decode("utf-8")
+    )
+
+    student2 = Students(
+        first_name = "Timmy",
+        last_name = "Tom",
+        email = "tom@example.com",
+        password = bcrypt.generate_password_hash("12345678").decode("utf-8")
+    )
+
+    db.session.add(student1)
+    db.session.add(student2)
+
+    db.session.commit()
+    
     print("Tables seeded successfully")
