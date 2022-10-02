@@ -9,8 +9,11 @@ class ListingSchema(ma.Schema):
         fields = ["listing_id", "price","description", "address_id", "address", "postcode_id", "postcode"]
         load_only = ["address_id"]
 
+    #shows suburb, street name, street number and postcode
     address = fields.Nested("AddressSchema", only=("suburb", "street_name", "street_number","postcode"))
 
+price = ma.Integer(required=True)
+description = ma.String(required=True)
 
 #single listing schema
 listing_schema = ListingSchema()

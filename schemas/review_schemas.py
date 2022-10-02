@@ -7,7 +7,8 @@ class ReviewSchema(ma.Schema):
         ordered = True
         fields = ["review_id", "rating", "description" ]
 
-
+    rating = ma.Integer(required=True)
+    description = ma.String(required=True)
 # Single review schema
 review_schema = ReviewSchema()
 

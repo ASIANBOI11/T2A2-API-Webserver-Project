@@ -5,6 +5,9 @@ class SubjectSchema(ma.Schema):
         ordered = True
         fields = ["subject_id", "subject" ,"description"]
 
+    subject = ma.String(required=True)
+    description = ma.String(required=True)
+
 #Single tutor schema 
 subject_schema = SubjectSchema()
 

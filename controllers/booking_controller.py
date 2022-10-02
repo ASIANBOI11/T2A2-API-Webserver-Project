@@ -8,6 +8,7 @@ from models.booking import Booking
 from models.tutors import Tutors
 from models.students import Students
 from schemas.booking_schemas import booking_schema, bookings_schema
+from marshmallow import ValidationError
 
 booking = Blueprint('booking', __name__, url_prefix="/booking")
 
@@ -35,7 +36,7 @@ def new_booking(student_id, tutor_id):
     if not tutor:
         return {"error": "Tutor not found in the database"}
    
-    
+    # Creating new booking
     booking = Booking(
         student = student,
         tutor = tutor,
@@ -44,8 +45,6 @@ def new_booking(student_id, tutor_id):
 
     db.session.add(booking)
     db.session.commit()
-    return jsonify(booking_schema.dump(booking))
+    return jsonify(booking_schema.dump(booking)), 201
     
-
-
 

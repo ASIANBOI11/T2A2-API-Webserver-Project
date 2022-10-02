@@ -11,6 +11,10 @@ class StudentsSchema(ma.Schema):
 
     subject = fields.Nested(ReviewSchema, only=("rating","description"))
 
+    first_name = ma.String(required=True)
+    last_name = ma.String(required=True)
+    email = ma.String(required=True)
+
 
     password = ma.String(validate=Length(8))
 #single student schema
