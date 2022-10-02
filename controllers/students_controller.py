@@ -85,7 +85,7 @@ def delete_student(id):
 
     db.session.commit()
 
-    return {"message": "Student deleted successfully"}
+    return {"message": "Student deleted successfully"}, 201
 
 
 @students.errorhandler(ValidationError)

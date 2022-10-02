@@ -1,5 +1,7 @@
 # T2A2-API-Webserver-Project
 
+## [Github Repository](https://github.com/ASIANBOI11/T2A2-API-Webserver-Project)
+
 ---
 
 # Identification of the problem you are trying to solve by building this particular app.
@@ -41,6 +43,128 @@ In conclusion, ORM is great for developing projects without dealing with queries
 ---
 
 # Document all endpoints for your API
+## Authorizations
+
+*  @auth.route('/register/student', methods=['POST'])
+
+    * Registration for the student
+    * Requires the data of first_name, last_name, email and password
+    * Password must be 8 characters long to register as the password, status code `400`
+    * Email must be unique, status code `400`
+    * Return the email and generates a unique token that expires in one day, status `201`
+
+
+* @auth.route('/student/login', methods=['POST'])
+
+    * Login an existing student account
+    * Requires the email and password to login
+    * Checks if the email is in the database, if not it will return an error message. Status code `400`
+    * Checks the password if it's correct, status code `400`
+    * Return a generated token that expires in one day, status `200`
+
+
+* @auth.route('/register/tutor', methods=['POST'])
+
+    * Registration for the student
+    * Requires the data of first_name, last_name, email and password
+    * Password must be 8 characters long to register as the password, status code `400`
+    * Email must be unique, status code `400`
+    * Return the email and generates a unique token that expires in one day, status `201`
+
+
+* @auth.route('/tutor/login', methods=['POST'])
+
+    * Login an existing tutor account
+    * Requires the email and password to login
+    * Checks if the email is in the database, if not it will return an error message. Status code `400`
+    * Checks the password if it's correct, status code `400`
+    * Return a generated token that expires in one day, status `200`
+
+## Students Route
+
+
+* @students.route("/", methods=["GET"])
+
+    * Requires an account from either the tutor or student to gain access, if token is not found, an error will be returned. Status code `401`. If expired show error message. Status code `200`
+    * Getiing all the students in the database
+    * Return the data of the students. Status code `200`
+
+
+* @students.route("/<int:id>", methods=["GET"])
+
+    * Requires an account from either the tutor or student to gain access, if token is not found, an error will be returned. Status code `401`. If expired show error message. Status code `200`
+    * Get a specific student from the database based on the id
+    * Return the data of the student. Status code `200`
+    * If there's no student found, show an error messsage. Status code `404`
+
+
+* @students.route("/", methods=["POST"]) 
+
+    * Requires an account from either the tutor or student to gain access, if token is not found, an error will be returned. Status code `401`. If expired show error message. Status code `200`.
+    * Data is required to set up the post. These are the first_name, last_name, email and password.
+    * Return the data of the student and create a post of the student. Status code `201`.
+
+* @students.route("/<int:id>", methods=["PUT"])
+
+    * Update existing student account from the database
+    * Requires an account from either the tutor or student to gain access, if token is not found, an error will be returned. Status code `401`. If expired show error message. Status code `200`.
+    * If the id hasn't found the route, show an error message. Status code `403`
+    * Data is required to set up the post. These are the first_name, last_name, email and password. 
+    * Return the data of the student and overwrite the post of the student. Status code `201`.
+
+* @students.route("/<int:id>", methods=["DELETE"])
+
+    * Requires an account from either the tutor or student to gain access, if token is not found, an error will be returned. Status code `401`. If expired show error message. Status code `200`
+    * If the id hasn't found the route, show an error message. Status code `403`
+    * The student account is deleted. Status code `201`
+
+
+## Tutor Routes
+
+* @tutors.route("/", methods=["GET"])
+
+    *  Requires an account from either the tutor or student to gain access, if token is not found, an error will be returned. Status code `401`. If expired show error message. Status code `200`
+    * Getiing all the students in the database
+    * Return the data of the tutor. Status code `200`
+
+
+* @tutors.route("/<int:id>", methods=["GET"])
+
+    * Requires an account from either the tutor or student to gain access, if token is not found, an error will be returned. Status code `401`. If expired show error message. Status code `200`
+    * Get a specific tutor from the database based on the id
+    * Return the data of the tutor. Status code `200`
+    * If there's no tutor found, show an error messsage. Status code `404`
+
+* @tutors.route("/", methods=["POST"])
+    * Requires an account from either the tutor or tutor to gain access, if token is not found, an error will be returned. Status code `401`. If expired show error message. Status code `200`.
+    * Data is required to set up the post. These are the first_name, last_name, email and password.
+    * Return the data of the tutor and create a post of the tutor. Status code `201`.
+
+
+* @tutors.route("/<int:id>", methods=["PUT"])
+
+    * Update existing tutor account from the database
+    * Requires an account from either the tutor or student to gain access, if token is not found, an error will be returned. Status code `401`. If expired show error message. Status code `200`.
+    * If the id hasn't found the route, show an error message. Status code `403`
+    * Data is required to set up the post. These are the first_name, last_name, email and password. 
+    * Return the data of the tutor and overwrite the post of the student. Status code `201`.
+
+* tutors.route("/<int:id>", methods=["DELETE"])
+
+    * Requires an account from either the tutor or student to gain access, if token is not found, an error will be returned. Status code `401`. If expired show error message. Status code `200`
+    * If the id hasn't found the route, show an error message. Status code `403`
+    * The tutor account is deleted. Status code `201`
+
+## Booking routes
+
+* @booking.route("/", methods=['GET'])
+
+    * Getiing all the students in the database
+    * Return the data of the tutor. Status code `200`
+
+* @booking.route("/<int:student_id>/booking/<int:tutor_id>", methods=["POST"])
+    * Student is making a booking for a tutor based on their id's
+    * Combine their data values and make a booking card with the date
 
 ---
 
@@ -195,4 +319,8 @@ The `postcode` has a `one to one` relationship with the `address`. Since there c
 ---
 
 # Describe the way tasks are allocated and tracked in your project
+My task were being tracked by trello. I've created seven section in the Trello project documentation. `key`, `features`, `backlog`, `to do`, `testing`, `implementation`, and `finalization`. These section were divided this way to keep track of my work and to make sure to focus on the core functionality of the API. `Key` shows the importance of the task based by colour. These colouring will be tagged on my task to see which one is more important. `Features` is the goal of the API assignment. If the `features` section is completely ticked, we've reached the goal of the API project. This made me focus on the core functionality and features when developing thr API.
 
+`To do` section just shows what task I had to do when it was placed on `to do` section. `testing` section experiments and see if certain features should be implemented and is it time worthy to completely finish the `testing` functionality. `Implementation` section shows that after the `testing` section has passed, it was approved to go into `implementation` where it will remain a feature into the final API product. `Finalization` is the final section of the API task. This shows what features are implementted and seen when using the API.
+
+### [Trello](https://trello.com/invite/b/WBMe0xNW/8cd324fd489182a987b8e45c0e608aef/tutor-management)
