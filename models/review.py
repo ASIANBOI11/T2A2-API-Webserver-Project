@@ -8,3 +8,7 @@ class Review(db.Model):
     review_id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer())
     description = db.Column(db.String())
+    student = db.relationship(
+        "Students",
+        backref="review"
+    )

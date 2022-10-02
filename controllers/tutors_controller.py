@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, request
 from main import db
 from models.tutors import Tutors
+from main import bcrypt
+from main import jwt
 from schemas.tutor_schemas import tutor_schema, tutors_schema
 
 tutors = Blueprint('tutors', __name__, url_prefix="/tutors")
@@ -30,6 +32,8 @@ def new_tutor():
         first_name = tutor_fields["first_name"],
         last_name = tutor_fields["last_name"],
         email = tutor_fields["email"],
+        password = bcrypt.generate_password_hash(tutor_fields["password"]).decode("utf-8"),
+
     )
 
     db.session.add(tutor)
@@ -54,3 +58,18 @@ def update_tutor(id):
     db.session.commit()
 
     return jsonify(tutor_schema.dump(tutor))
+
+# Delet the tutor from the database
+tutors.route("/<int:id>", methods=["DELETE"])
+def delete_tutor(id):
+    #Find tutor in the database
+    tutor = Tutors.query.get(id)
+
+    if not tutor:
+        return {"error": "No tutor found"}
+
+    db.session.delete(tutor)
+
+    db.session.commit()
+
+    return {"message": "Deleted Tutor successfully"}

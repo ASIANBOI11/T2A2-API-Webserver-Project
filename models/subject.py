@@ -8,3 +8,7 @@ class Subject(db.Model):
     subject_id = db.Column(db.Integer, primary_key=True)
     subject = db.Column(db.String())
     description = db.Column(db.String())
+    tutor = db.relationship(
+        "Tutors",
+        backref="subject",
+    )

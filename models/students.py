@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from main import db
 
 class Students(db.Model):
@@ -10,4 +11,12 @@ class Students(db.Model):
     last_name = db.Column(db.String(), nullable=False)
     email = db.Column(db.String(), nullable=False, unique=True)
     password = db.Column(db.String(), nullable=False)
+    review_id = db.Column(db.Integer, db.ForeignKey("review.review_id"), nullable=True)
+
+    booking = db.relationship(
+        "Booking",
+        backref="students",
+        cascade="all,delete"
+    )
+
     

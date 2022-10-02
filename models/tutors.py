@@ -10,6 +10,12 @@ class Tutors(db.Model):
     last_name = db.Column(db.String(), nullable=False)
     email = db.Column(db.String(), nullable=False)
     password = db.Column(db.String(), nullable=False)
+    subject_id = db.Column(db.Integer, db.ForeignKey("subject.subject_id"), nullable=True)
+    listing_id = db.Column(db.Integer, db.ForeignKey("listing.listing_id"), nullable=True)
     
 
-    
+    booking = db.relationship(
+        "Booking",
+        backref="tutors",
+        cascade="all,delete"
+    )

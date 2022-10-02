@@ -1,10 +1,15 @@
 from main import ma
 from marshmallow.validate import Length
+from marshmallow import fields
+from schemas.review_schemas import ReviewSchema
 
 class StudentsSchema(ma.Schema):
     class Meta:
         ordered = True
-        fields = ["student_id", "first_name","last_name","email","password"]
+        fields = ["student_id", "first_name","last_name","email","password", "review_id", "review"]
+        load_only = ["review_id"]
+
+    subject = fields.Nested(ReviewSchema, only=("rating","description"))
 
 
     password = ma.String(validate=Length(8))

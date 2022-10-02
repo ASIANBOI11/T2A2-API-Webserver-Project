@@ -67,7 +67,8 @@ def register_tutor():
         first_name = tutor_fields["first_name"],
         last_name = tutor_fields["last_name"],
         email = tutor_fields["email"],
-        password = bcrypt.generate_password_hash(tutor_fields["password"]).decode("utf-8")
+        password = bcrypt.generate_password_hash(tutor_fields["password"]).decode("utf-8"),
+        subject_id = tutor_fields["subject_id"]
     )
 
     # Add the student to the database
